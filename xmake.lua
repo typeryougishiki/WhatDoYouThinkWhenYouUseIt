@@ -3,6 +3,7 @@ set_xmakever("2.8.2")
 
 -- add custom package repository
 add_repositories("re https://github.com/Starfield-Reverse-Engineering/commonlibsf-xrepo")
+add_repositories("my-repo https://github.com/typeryougishiki/my-xxse-xmake-repo")
 -- import changed commonlibsf plugin rule , this rule don't create plugin.cpp
 includes("commonlibsf_plugin_without_plugin_cpp.lua")
 
@@ -24,19 +25,23 @@ add_rules("plugin.vsxmake.autoupdate")
 -- require package dependencies
 add_requires("commonlibsf")
 add_requires("simpleini")
-add_requires("rapidcsv")
+add_requires("xxse-csvmanager-header")
 
 -- setup targets
 target("WhatDoYouThinkWhenYouUseIt")
     -- bind package dependencies
     add_packages("commonlibsf")
     add_packages("simpleini")
-    add_packages("rapidcsv")
+    add_packages("xxse-csvmanager-header")
     -- add commonlibsf plugin
     add_rules("commonlibsf_plugin_without_plugin_cpp", {
         author = "typeryougishiki/typer214",
         description = "Plugin Description",
         email = "typeryougishiki@163.com"
+    })
+    add_rules("@xxse-csvmanager-header/configure", {
+        xxse_name = "sfse",
+        logger_namespace = "logger"
     })
     -- add source files
     set_pcxxheader("src/pch.h")
