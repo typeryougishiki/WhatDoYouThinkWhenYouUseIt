@@ -2,7 +2,7 @@
 #include "SimpleIni.h"
 class Config : public Singleton<Config>
 {
-public: 
+public:
     inline static void LoadSettings() noexcept
     {
         logger::info("Loading settings");
@@ -16,7 +16,8 @@ public:
         }
 
         debug_logging = ini.GetBoolValue("Log", "Debug");
-
+        //logger::info("here:{}", ini.GetValue("General", "PersonalPronous", "I "));
+        PersonalPronous = std::string{ ini.GetValue("General", "PersonalPronous", "I ") };
         if (debug_logging) {
             spdlog::set_level(spdlog::level::level_enum::debug);
             logger::debug("Debug logging enabled");
@@ -28,4 +29,5 @@ public:
     };
 
     inline static bool debug_logging{};
+    inline static std::string PersonalPronous{};
 };

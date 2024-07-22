@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 
 namespace hook::ActorEquipManger::EquipObject {
 	constexpr auto FUNCTION_ID{ RE::ID::ActorEquipManager::EquipObject };
 	struct AMustFuncCallWithActorAndEquipObjectAsArgument {
-		//Ò»¸öÒÔRE::Actor* a_actorºÍRE::BGSObjectInstance* a_object×÷Îª²ÎÊıµÄ¶Ô²»ÖªÃûº¯ÊıµÄµ÷ÓÃ
-		//¸Ãº¯Êıµ÷ÓÃÔÚÖ¸Õëa_actorºÍÒıÓÃa_object¾ùÎ´Ö¸ÏònullptrµÄÇé¿öÏÂ±ØÈ»±»·¢Éú
-		inline constexpr static std::ptrdiff_t CALL_LOCATION{ 0x1db };//¶Ô¸Ãº¯Êıµ÷ÓÃcallÖ¸ÁîÏà¶ÔÓÚEquipObjectº¯ÊıÆğÊ¼µãµÄÆ«ÒÆÁ¿
+		//ä¸€ä¸ªä»¥RE::Actor* a_actorå’ŒRE::BGSObjectInstance* a_objectä½œä¸ºå‚æ•°çš„å¯¹ä¸çŸ¥åå‡½æ•°çš„è°ƒç”¨
+		//è¯¥å‡½æ•°è°ƒç”¨åœ¨æŒ‡é’ˆa_actorå’Œå¼•ç”¨a_objectå‡æœªæŒ‡å‘nullptrçš„æƒ…å†µä¸‹å¿…ç„¶è¢«å‘ç”Ÿ
+		inline constexpr static std::ptrdiff_t CALL_LOCATION{ 0x1db };//å¯¹è¯¥å‡½æ•°è°ƒç”¨callæŒ‡ä»¤ç›¸å¯¹äºEquipObjectå‡½æ•°èµ·å§‹ç‚¹çš„åç§»é‡
 		static int64_t thunk(int64_t unk1, int64_t unk2, RE::Actor* a_actor, RE::BGSObjectInstance* a_object);
 		inline static REL::Relocation<decltype(thunk)> func;
 		inline static auto GetOrginialFunc(){return func;}

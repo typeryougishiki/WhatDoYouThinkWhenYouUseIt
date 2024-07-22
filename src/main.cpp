@@ -32,16 +32,20 @@ inline void LoadThinkDatas() {
                 has_final = true;
                 continue;
             }
+            logger::info("Load thinks from {}"sv, path);
             csv_manager->ConstAccessCsv(path, [](const rapidcsv::Document& doc) {ThinkDatas::AddToThinkDatasSingleton(doc, false); });
         }
         if (has_final) {
+            logger::info("Load thinks from final.csv"sv);
             csv_manager->ConstAccessCsv("final.csv"sv, [](const rapidcsv::Document& doc) {ThinkDatas::AddToThinkDatasSingleton(doc, true); });
         }
+        ThinkDatas::Inited.store(true);
 }
 // Main SFSE plugin entry point, initialize everything here
 SFSEPluginLoad(const SFSE::LoadInterface* sfse){
     SFSE::Init(sfse);
     return NoExceptField::FieldWithReturn<bool>([]() ->auto {
+        Config::LoadSettings();
         LoadThinkDatas();
         logger::info("{} {} is loading...", Plugin::Name, Plugin::Version.string());
         if (const auto messaging{ SFSE::GetMessagingInterface() }; !messaging->RegisterListener(SfseMsgListener))
