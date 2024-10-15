@@ -4,6 +4,8 @@ set_xmakever("2.8.2")
 -- add custom package repository
 add_repositories("re https://github.com/Starfield-Reverse-Engineering/commonlibsf-xrepo")
 add_repositories("my-repo https://github.com/typeryougishiki/my-xxse-xmake-repo")
+-- import git submodule lib/commonlibsf
+includes("lib/commonlibsf")
 -- import changed commonlibsf plugin rule , this rule don't create plugin.cpp
 includes("commonlibsf_plugin_without_plugin_cpp.lua")
 
@@ -19,7 +21,7 @@ set_warnings("allextra", "error")
 set_defaultmode("releasedbg")
 
 -- add rules
-add_rules("mode.releasedbg", "mode.debug")
+add_rules("mode.release", "mode.releasedbg", "mode.debug")
 add_rules("plugin.vsxmake.autoupdate")
 
 -- require package dependencies
@@ -30,7 +32,7 @@ add_requires("xxse-csvmanager-header")
 -- setup targets
 target("WhatDoYouThinkWhenYouUseIt")
     -- bind package dependencies
-    add_packages("commonlibsf")
+    add_deps("commonlibsf")
     add_packages("simpleini")
     add_packages("xxse-csvmanager-header")
     -- add commonlibsf plugin
